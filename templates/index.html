@@ -14,13 +14,17 @@
 <body>
     <div class="container" style="margin-top: 60px;">
         <h1>Planet Classifier</h1>
+        {% if not results_csv %}
         <form class="p-3 text-center" action="/" , method="post" enctype="multipart/form-data">
             <input type="file" class="form-control" name="imagefile">
             <input class="btn btn-success mt-3" type="submit" value="Predict Planet">
         </form>
+        {% endif %}
     
-        {% if accuracy %}
-        <p class="text-center">Modal accuracy is {{accuracy}}</p>
+        {% if results_csv %}
+            <form action="/files/{{results_csv}}" method="get">
+                <input type="hidden" name="results_csv" value="{{ results_csv }}">
+                <input class="btn btn-success mt-3" type="submit" value="Download Results">
         {% endif %}
     </div>
 
