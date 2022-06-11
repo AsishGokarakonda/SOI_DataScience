@@ -57,7 +57,7 @@ def predict ():
     data.drop('tce_rogue_flag', inplace=True, axis=1)
     data.drop('tce_insol', inplace=True, axis=1)
     data.drop('tce_insol_err', inplace=True, axis=1)
-    data.drop('kepid', inplace=True, axis=1)
+    # data.drop('kepid', inplace=True, axis=1)
 
     x_test = data.drop('av_training_set', axis=1)
     y_test = pd.DataFrame(string_to_onehot(data['av_training_set']))
