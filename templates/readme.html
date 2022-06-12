@@ -49,68 +49,62 @@
     </nav>
 
     <div class="container" style="margin-top: 30px ;margin-bottom: 30px;">
-        <div style="margin-bottom: 30px;">
-            <h1>Execution Details</h1>
-            <hr style="margin-top:0px ;">
-            <ol>
-                <li>
-                    Clone the repository using <b> git clone &lt;repo-link&gt; </b>
-                </li>
-                <br>
-                <li>
-                    Set up the python virtual environment using following commands:
-                    <ul>
-                        <ol type="I">
-                            <li>
-                                <b>python -m venv venv</b>
-                            </li>
-                            <li>
-                                <b>source /home//Desktop/SOI_DataScience/venv/bin/activate (or source
-                                    /path/to/venv/bin/activate)</b>
-                            </li>
-                            <li>
-                                <b>pip install -r requirements.txt</b>
-                            </li>
-                        </ol>
-                    </ul>
-                </li>
-                <br>
-                <li>
-                    Now run the app using: <b>python3 app.py</b>
-                </li>
-                <br>
-                <li>
-                    The app will start running at port 3000.
-                </li>
-            </ol>
-            (Note: To deactivate the venv, just use: <b>deactivate </b>)
-        </div>
-        <div style="margin-bottom: 30px ;">
-            <h1>Details about the Model</h1>
-            <hr style="margin-top: 0px;">
-            <div>
-                The Neural Network model created for the project has some larger initial layers which enable the
-                computation, followed by gradually tapering layers which reduce the dimensionality of the information
-                and bring it down to 4 in the last layer. It used categorical cross-entropy as the loss function and the
-                adam optimizer. Some unrelated columns in the data have been dropped.
-            </div>
-            <br>
-            <div>
-                A pretrained version of the Model is being used in the project which had a training accuracy of around
-                83 percent. Incase the model isn't functioning properly (due to any versioning issues) we've provided
-                the python note book to generate the model, and then use it in the webapp.
-            </div>
-        </div>
+        <h1 id="execution-details">Execution Details</h1>
+<hr style="margin-top:0 ;" />
 
+<ol>
+<li><p>Clone the repository using <code>git clone https://github.com/AsishGokarakonda/SOI_DataScience</code>.</p>
+</li>
+<li><p>Set up the python virtual environment using following commands:
+ 1) &gt; python -m venv venv
+ 2) &gt; source /home/<username>/Desktop/SOI_DataScience/venv/bin/activate 
+ (or source /path/to/venv/bin/activate)
+ 2) &gt; pip install -r requirements.txt</p>
+</li>
+<li><p>Now run the app using: <code>python3 app.py</code></p>
+</li>
+<li><p>The app will start running at port 3000.</p>
+</li>
+</ol>
+<p>(Note: To deactivate the venv, just use: <code>deactivate</code>)</p>
+<h1 id="details-about-the-model">Details about the Model</h1>
+<hr style="margin-top:0 ;" />
 
-        <div>
-            <h1>Details about the App</h1>
-            <hr style="margin-top: 0px;">
-            <div>
-                The webapp is designed using the flask API. It runs on the host computer at port 3000.
-            </div>
-        </div>
-    </div>
+<p>The Neural Network model created for the project has some larger initial layers which enable the computation, followed by gradually tapering layers which reduce the dimensionality of the information and bring it down to 4 in the last layer. It used categorical cross-entropy as the loss function and the adam optimizer. Some unrelated columns in the data have been dropped.</p>
+<p>A pretrained version of the Model is being used in the project which had a training accuracy of around 83 percent. Incase the model isn&#39;t functioning properly (due to any versioning issues) we&#39;ve provided the python note book to generate the model, and then use it in the webapp.</p>
+<h1 id="details-about-the-app">Details about the App</h1>
+<hr style="margin-top:0 ;" />
+
+<p>The webapp is designed using the flask API. It runs on the host computer at port 3000.</p>
+<h2 id="input-csv-file">Input csv file</h2>
+<hr style="margin-top:0 ;" />
+
+<p>The input csv file is a csv file which contains the following columns:
+<code>kepid,tce_plnt_num,tce_rogue_flag,tce_period,tce_period_err,tce_time0bk,tce_time0bk_err,tce_impact,tce_impact_err,tce_duration,tce_duration_err,tce_depth,tce_depth_err,tce_model_snr,tce_prad,tce_prad_err,tce_eqt,tce_eqt_err,tce_insol,tce_insol_err,tce_steff,tce_steff_err,tce_slogg,tce_slogg_err,tce_sradius,tce_sradius_err</code> and has header.</p>
+<p>Refer to sample input csv file <a href="./files/sample_input.csv">here</a>.</p>
+<h2 id="output-csv-file">Output csv file</h2>
+<hr style="margin-top:0 ;" />
+
+<p>Predicted results are obtained by a csv file containing the predicted labels by our keras model for given input data. It consists only <code>av_training_set</code> column with header.</p>
+<p>Rows are of same order as the input csv file.</p>
+<h2 id="how-predictions-are-made">How predictions are made</h2>
+<hr style="margin-top:0 ;" />
+
+<p>We first made a model using the problem dataset given <a href="../files/problem_dataset.csv">here</a>. Then we saved the model in the <code href="./files/model/">files/model</code> folder. In the flask web app,
+we load the model using the <code>load_model</code> function. Then we make predictions for the input csv files using the <code>predict</code> function.</p>
+<h2 id="result-analysis">Result Analysis</h2>
+<hr style="margin-top:0 ;" />
+
+<p>A basic bar chart is shown after prediction is done to show the distribution of the predicted labels. Sample image is shown below.</p>
+<p><img src="files/result_sample.png" alt="image"></p>
+<h2 id="trouble-shooting">Trouble Shooting</h2>
+<hr style="margin-top:0 ;" />
+<h3 id="1-error-after-submitting-the-input-csv-file-valueerror-">1. Error after submitting the input csv file (ValueError)</h3>
+<p>The error may be due to the incorrect input csv file. Check if the input csv file is in the correct format. Sample input csv file is <a href="../files/sample_input.csv">here</a>.</p>
+<h3 id="2-not-enough-permissions-to-access-files-folder">2. Not enough permissions to access <code>/files/</code> folder</h3>
+<p>The error may be due to opening the <code>/files/</code> folder in any other application. Try closing them. Also if you are using linux, make sure you have the permissions to access the folder.</p>
+<h3 id="3-error-while-loading-the-model-attributeerror-">3. Error while loading the model (AttributeError)</h3>
+<p>This error may be due to using different versions of tensorflow. Make sure you are using virtual environment. If you are still facing this error, then run the file <a href="https://colab.research.google.com/drive/1kuyL5t8c6WfGCWK_PBxVk1aYgA3NNXG-?authuser=1#scrollTo=eZQ1gKMKe9iI">soi_nn_2.py</a> to generate the model. This will generate the model in the <code>files/model</code> folder.</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
         integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
