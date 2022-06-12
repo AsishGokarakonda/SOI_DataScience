@@ -1,6 +1,6 @@
 # Execution Details
 
-1. Clone the repository using `git clone <repo-link>`.
+1. Clone the repository using `git clone https://github.com/AsishGokarakonda/SOI_DataScience`.
 
 2. Set up the python virtual environment using following commands:
     1) > python -m venv venv
