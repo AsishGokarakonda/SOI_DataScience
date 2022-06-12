@@ -46,15 +46,7 @@ def onehot_to_string(int_arr):  # Convert back one-hot to text
       res.append('UNK')
   return res
 
-def real_accuracy(res1_pd, res2_pd):
-  correct = 0
-  comp_column = np.where(res1_pd["av_training_set"] == res2_pd["av_training_set"], 1, 0)
-  # count the number of correct predictions
-  correct = np.sum(comp_column)
-  # calculate the accuracy
-  accuracy = correct / len(res1_pd)
-  return accuracy
-      
+
 
 @app.route('/',methods=['GET'])
 
@@ -75,8 +67,7 @@ def predict ():
     data.drop('tce_insol_err', inplace=True, axis=1)
     data.drop('kepid', inplace=True, axis=1)
 
-    x_test = data.drop('av_training_set', axis=1)
-    result = model.predict(x_test)
+    result = model.predict(data)
     result = onehot_to_string(result)
     result_csv = pd.DataFrame(result, columns=['av_training_set'])
 
@@ -84,12 +75,13 @@ def predict ():
     res_df = pd.DataFrame.from_dict(label_count, orient='index')
     ax = res_df.plot(kind='bar', title='Prediction', legend = None )
     ax.bar_label(ax.containers[0])
+    
     unique_id  = uuid.uuid4().hex
-
     path_to_csv = "files/csv/result_" + unique_id + ".csv"
     path_to_img = "files/img/result_" + unique_id + ".png"
     plt.savefig(path_to_img)
     result_csv.to_csv(path_to_csv,index=False)
+
     return render_template('index.html', response_id = unique_id)
 
 @app.route('/files/<path:path>', methods=['GET'])

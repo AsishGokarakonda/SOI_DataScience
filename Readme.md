@@ -23,3 +23,10 @@ A pretrained version of the Model is being used in the project which had a train
 # Details about the App
 
 The webapp is designed using the flask API. It runs on the host computer at port 3000.
+
+### Input csv file
+The input csv file is a csv file which contains the following columns:
+`kepid,tce_plnt_num,tce_rogue_flag,tce_period,tce_period_err,tce_time0bk,tce_time0bk_err,tce_impact,tce_impact_err,tce_duration,tce_duration_err,tce_depth,tce_depth_err,tce_model_snr,tce_prad,tce_prad_err,tce_eqt,tce_eqt_err,tce_insol,tce_insol_err,tce_steff,tce_steff_err,tce_slogg,tce_slogg_err,tce_sradius,tce_sradius_err` and has header.
+
+
+### Prediction csv file
