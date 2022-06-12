@@ -61,7 +61,7 @@ def predict ():
 
     x_test = data.drop('av_training_set', axis=1)
     y_test = pd.DataFrame(string_to_onehot(data['av_training_set']))
-    result = model.predict(x_test)
+    result = model.predict(x_test) 
     result = onehot_to_string(result)
     result_csv = pd.DataFrame(result, index=None, columns=['av_training_set'])
     actual_result = pd.DataFrame(data['av_training_set'], columns=['av_training_set'])
@@ -75,6 +75,18 @@ def down_file(path):
     path = "./files/" + path
     file = open(path, 'rb')
     return send_file(file, as_attachment=True, attachment_filename='result.csv')
+
+
+@app.route('/readme')
+
+def readme():
+    return render_template('readme.html')
+  
+@app.route('/about')
+
+def about():
+    return render_template('about.html')
+  
     
 if __name__ == '__main__':
     app.run(port=3000,debug=True)
