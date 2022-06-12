@@ -73,7 +73,7 @@ def predict ():
 
     label_count = Counter(result)
     res_df = pd.DataFrame.from_dict(label_count, orient='index')
-    ax = res_df.plot(kind='bar', title='Prediction', legend = None )
+    ax = res_df.plot(kind='bar', title='No.of predicted lobels', legend = None )
     ax.bar_label(ax.containers[0])
     
     unique_id  = uuid.uuid4().hex
@@ -88,7 +88,8 @@ def predict ():
 def down_file(path):
     path = "./files/" + path
     file = open(path, 'rb')
-    return send_file(file, as_attachment=True, attachment_filename='result.csv')
+    attachment_filename = path.split('/')[-1]
+    return send_file(file, as_attachment=True, attachment_filename=attachment_filename)
 
 
 @app.route('/readme')

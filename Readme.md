@@ -24,12 +24,31 @@ A pretrained version of the Model is being used in the project which had a train
 
 The webapp is designed using the flask API. It runs on the host computer at port 3000.
 
-### Input csv file
+## Input csv file
 The input csv file is a csv file which contains the following columns:
 `kepid,tce_plnt_num,tce_rogue_flag,tce_period,tce_period_err,tce_time0bk,tce_time0bk_err,tce_impact,tce_impact_err,tce_duration,tce_duration_err,tce_depth,tce_depth_err,tce_model_snr,tce_prad,tce_prad_err,tce_eqt,tce_eqt_err,tce_insol,tce_insol_err,tce_steff,tce_steff_err,tce_slogg,tce_slogg_err,tce_sradius,tce_sradius_err` and has header.
 
+Refer to sample input csv file [here](./files/problem_dataset_no_label.csv).
 
-### Prediction csv file
-The prediction csv file contains the predicted labels by our keras model for given input data. It consists only `av_training_set` column with header.
+## Output csv file
+Predicted results are obtained by a csv file containing the predicted labels by our keras model for given input data. It consists only `av_training_set` column with header.
 
 Rows are of same order as the input csv file.
+
+## How predictions are made
+We first made a model using the problem dataset given [here](./soi_nn_2.ipynb). Then we saved the model in the [files/model](./files/model/) folder. In the flask web app,
+we load the model using the `load_model` function. Then we make predictions for the input csv files using the `predict` function.
+
+## Result Analysis
+A basic bar chart is shown after prediction is done to show the distribution of the predicted labels. Sample image is shown below.
+![image](files/result_sample.png)
+
+## Trouble Shooting
+### 1. Error after submitting the input csv file (ValueError)
+The error may be due to the incorrect input csv file. Check if the input csv file is in the correct format. Sample input csv file is [here](./files/problem_dataset_no_label.csv).
+
+### 2. Not enough permissions to access `/files/` folder
+The error may be due to opening the `/files/` folder in any other application. Try closing them. Also if you are using linux, make sure you have the permissions to access the folder.
+
+### 3. Error while loading the model (AttributeError)
+This error may be due to using different versions of tensorflow. Make sure you are using virtual environment. If you are still facing this error, then run the file [soi_nn_2.py](./soi_nn_2.py) to generate the model. This will generate the model in the `files/model` folder.
