@@ -154,9 +154,9 @@ history_df['loss'].plot();
 """#Predicting the Labels"""
 
 y_test = pd.DataFrame(y_test)
-output, accuracy = model.evaluate(x_test,y_test)    #testing
+loss, accuracy = model.evaluate(x_test,y_test)    #testing
 model.save('files/model')
 print("Model accuracy: %.2f"% (accuracy*100))
 
-print(output)
+print(loss)
 
