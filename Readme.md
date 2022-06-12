@@ -9,3 +9,5 @@
 3. Now run the app using: python3 app.py
 
 4. The app will start running at port 3000.
+
+(Note: To deactivate the venv, just use: deactivate)
