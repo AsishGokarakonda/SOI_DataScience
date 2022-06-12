@@ -30,6 +30,6 @@ The input csv file is a csv file which contains the following columns:
 
 
 ### Prediction csv file
-The prediction csv file contains the predicted labels by our keras modek for given input data. It consists only `av_training_set` column with header.
+The prediction csv file contains the predicted labels by our keras model for given input data. It consists only `av_training_set` column with header.
 
 Rows are of same order as the input csv file.
