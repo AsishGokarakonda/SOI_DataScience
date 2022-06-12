@@ -41,6 +41,7 @@ we load the model using the `load_model` function. Then we make predictions for 
 
 ## Result Analysis
 A basic bar chart is shown after prediction is done to show the distribution of the predicted labels. Sample image is shown below.
+
 ![image](files/result_sample.png)
 
 ## Trouble Shooting
