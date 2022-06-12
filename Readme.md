@@ -4,8 +4,11 @@
 
 2. Set up the python virtual environment using following commands:
     1) > python -m venv venv
-    2) > source /home/<username>/Desktop/SOI_DataScience/venv/bin/activate 
-    (or source /path/to/venv/bin/activate)
+    2) Activate virtual environment:
+        > source venv/bin/activate #(for linux)
+
+        > .\venv\Scripts\activate.ps1 #(for windows)
+
     2) > pip install -r requirements.txt
 
 3. Now run the app using: `python3 app.py`
@@ -20,6 +23,9 @@ The Neural Network model created for the project has some larger initial layers 
 
 A pretrained version of the Model is being used in the project which had a training accuracy of around 83 percent. Incase the model isn't functioning properly (due to any versioning issues) we've provided the python note book to generate the model, and then use it in the webapp.
 
+The model uses one-hot encoding for performing classification. 
+
+The tce_rogue_flag, tce_insol and tce_insol_err columns are dropped since they are empty. Also kepid is dropped since it is only for unique identification purpose
 # Details about the App
 
 The webapp is designed using the flask API. It runs on the host computer at port 3000.
@@ -52,4 +58,4 @@ The error may be due to the incorrect input csv file. Check if the input csv fil
 The error may be due to opening the `/files/` folder in any other application. Try closing them. Also if you are using linux, make sure you have the permissions to access the folder.
 
 ### 3. Error while loading the model (AttributeError)
-This error may be due to using different versions of tensorflow. Make sure you are using virtual environment. If you are still facing this error, then run the file [soi_nn_2.ipynb](https://colab.research.google.com/drive/1kuyL5t8c6WfGCWK_PBxVk1aYgA3NNXG-?authuser=1#scrollTo=eZQ1gKMKe9iI) to generate the model. This will generate the model in the `files/model` folder.
+This error may be due to using different versions of tensorflow. Make sure you are using virtual environment. If you are still facing this error, then run the file [soi_nn_2.ipynb](./soi_nn_2.ipynb) to generate the model. This will generate the model in the `files/model` folder.
