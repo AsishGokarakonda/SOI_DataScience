@@ -1,8 +1,15 @@
+from re import T
+from collections import Counter
+import uuid
 from flask import Flask, render_template, request, send_file
 import pandas as pd
-from keras.models import Sequential
-from keras.layers import Dense
 import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+
+import os
+os.makedirs('files/img', exist_ok=True)
+os.makedirs('files/csv', exist_ok=True)
 
 model = tf.keras.models.load_model('files/model')
 app = Flask(__name__)
@@ -40,6 +47,7 @@ def onehot_to_string(int_arr):  # Convert back one-hot to text
   return res
 
 
+
 @app.route('/',methods=['GET'])
 
 def hello_world():
@@ -59,16 +67,22 @@ def predict ():
     data.drop('tce_insol_err', inplace=True, axis=1)
     data.drop('kepid', inplace=True, axis=1)
 
-    x_test = data.drop('av_training_set', axis=1)
-    y_test = pd.DataFrame(string_to_onehot(data['av_training_set']))
-    result = model.predict(x_test) 
+    result = model.predict(data)
     result = onehot_to_string(result)
-    result_csv = pd.DataFrame(result, index=None, columns=['av_training_set'])
-    actual_result = pd.DataFrame(data['av_training_set'], columns=['av_training_set'])
-    # compare the predicted and actual results
-    result_csv.columns = ['av_training_set']
-    result_csv.to_csv('files/result.csv',index=False)
-    return render_template('index.html', results_csv='/result.csv')
+    result_csv = pd.DataFrame(result, columns=['av_training_set'])
+
+    label_count = Counter(result)
+    res_df = pd.DataFrame.from_dict(label_count, orient='index')
+    ax = res_df.plot(kind='bar', title='Prediction', legend = None )
+    ax.bar_label(ax.containers[0])
+    
+    unique_id  = uuid.uuid4().hex
+    path_to_csv = "files/csv/result_" + unique_id + ".csv"
+    path_to_img = "files/img/result_" + unique_id + ".png"
+    plt.savefig(path_to_img)
+    result_csv.to_csv(path_to_csv,index=False)
+
+    return render_template('index.html', response_id = unique_id)
 
 @app.route('/files/<path:path>', methods=['GET'])
 def down_file(path):
