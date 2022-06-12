@@ -26,6 +26,7 @@ A pretrained version of the Model is being used in the project which had a train
 The model uses one-hot encoding for performing classification. 
 
 The tce_rogue_flag, tce_insol and tce_insol_err columns are dropped since they are empty. Also kepid is dropped since it is only for unique identification purpose
+
 # Details about the App
 
 The webapp is designed using the flask API. It runs on the host computer at port 3000.
