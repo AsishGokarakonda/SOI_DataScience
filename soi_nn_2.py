@@ -12,7 +12,7 @@ Original file is located at
 #Load data
 import pandas as pd
 import random
-data = pd.read_csv('files/problem_dataset.csv')
+data = pd.read_csv('./files/problem_dataset.csv')
 
 # Remove the blank columns and unnecessary columns
 data.drop('tce_rogue_flag', inplace=True, axis=1)
@@ -32,8 +32,8 @@ x = data.drop('av_training_set', axis=1)
 print(y)
 
 # Partition dataset into training part and testing part
-x_train = x[:13000].copy()
-y_train = y[:13000].copy()
+x_train = x[:15000].copy()
+y_train = y[:15000].copy()
 x_test = x[13000:].copy()
 y_test = y[13000:].copy()
 
@@ -71,6 +71,9 @@ def onehot_to_string(int_arr):  # Convert back one-hot to text
     elif x==[0,0,0,1]:
       int_arr.append('UNK')
 
+y = pd.DataFrame(string_to_onehot(y))
+print(y)
+
 y_train.shape
 
 # Get the one-hot encoding for training and testing labels
@@ -102,10 +105,10 @@ model.add(Dense(100, activation='relu'))
 model.add(tf.keras.layers.Dropout(rate=0.3))
 model.add(tf.keras.layers.BatchNormalization())
 
+
 model.add(Dense(40, activation='relu'))
 model.add(tf.keras.layers.Dropout(rate=0.3))
 model.add(tf.keras.layers.BatchNormalization())
-
 
 # model.add(Dense(30, activation='relu'))
 # model.add(tf.keras.layers.Dropout(rate=0.3))
@@ -142,7 +145,13 @@ print(y_train)
 y_train = pd.DataFrame(y_train)
 print(y_train)
 
-hist = model.fit(x_train, y_train, epochs=1000, batch_size=500)
+hist = model.fit(x, y, epochs=100, batch_size=500)
+
+
+model.save('files/model')
+
+
+# Download the model from the colab files
 
 import pandas as pd
 
@@ -155,8 +164,9 @@ history_df['loss'].plot();
 
 y_test = pd.DataFrame(y_test)
 loss, accuracy = model.evaluate(x_test,y_test)    #testing
-model.save('files/model')
 print("Model accuracy: %.2f"% (accuracy*100))
+
+print(accuracy)
 
 print(loss)
 
