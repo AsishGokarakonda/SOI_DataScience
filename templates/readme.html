@@ -72,6 +72,8 @@
 
 <p>The Neural Network model created for the project has some larger initial layers which enable the computation, followed by gradually tapering layers which reduce the dimensionality of the information and bring it down to 4 in the last layer. It used categorical cross-entropy as the loss function and the adam optimizer. Some unrelated columns in the data have been dropped.</p>
 <p>A pretrained version of the Model is being used in the project which had a training accuracy of around 83 percent. Incase the model isn&#39;t functioning properly (due to any versioning issues) we&#39;ve provided the python note book to generate the model, and then use it in the webapp.</p>
+<p>The model uses one-hot encoding for performing classification.</p>
+<p>The tce_rogue_flag, tce_insol and tce_insol_err columns are dropped since they are empty. Also kepid is dropped since it is only for unique identification purpose</p>
 <h1 id="details-about-the-app">Details about the App</h1>
 <hr style="margin-top:0 ;" />
 
